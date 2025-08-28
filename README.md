@@ -359,6 +359,28 @@
   </div>
 
   <script>
+  // ============ LOGIN / LOGOUT ============
+  function signIn() {
+    document.getElementById("auth").style.display = "none";
+    document.getElementById("app").removeAttribute("aria-hidden");
+    openSection("dashboard");
+  }
+
+  function logout() {
+    document.getElementById("auth").style.display = "flex";
+    document.getElementById("app").setAttribute("aria-hidden", "true");
+  }
+
+  // ============ NAVIGATION ============
+  function openSection(id) {
+    document.querySelectorAll("[data-section]").forEach(sec => sec.classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
+
+    document.querySelectorAll("#nav .nav-btn").forEach(btn =>
+      btn.classList.toggle("active", btn.dataset.target === id)
+    );
+  }
+
     // ============ SERVICE WORKER & PWA ============
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('data:text/javascript;base64,Ly8gU2VydmljZSBXb3JrZXIgZm9yIENoYWxldCBDUk0gUFdBCmNvbnN0IENBQ0hFX05BTUUgPSAnY2hhbGV0LWNybS12MScKY29uc3QgdXJsc1RvQ2FjaGUgPSBbJy8nXQoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZSA9PiB7CiAgZS53YWl0VW50aWwoY2FjaGVzLm9wZW4oQ0FDSEVfTkFNRSkudGhlbihjID0+IGMuYWRkQWxsKHVybHNUb0NhY2hlKSkpCn0pCgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZSA9PiB7CiAgZS5yZXNwb25kV2l0aChjYWNoZXMubWF0Y2goZS5yZXF1ZXN0KS50aGVuKHIgPT4gciB8fCBmZXRjaChlLnJlcXVlc3QpKSkKfSk=').catch(e => console.log('SW registration failed'));
